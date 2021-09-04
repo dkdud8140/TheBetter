@@ -26,16 +26,6 @@
 			width: 190px;
 			height: 500px;
 		}
-
-		div.pallett1 div.puzzle{
-			width: 76.6px;
-			height: 80px;
-			background-image: url("/img/puzzle_oper.svg") ;
-			/*드래그에 따라 위치값이 정해지기 떄문에 포지션 absolute로 변경*/
-			position: absolute;
-			-webkit-user-drag: none;
-		}
-
 		
 		div.pallett2 {
 			background-color: chocolate;
@@ -43,10 +33,9 @@
 			height: 200px;
 		}
 
-		div.pallett2 div.puzzle{
+		img.puzzle{
 			width: 92px;
 			height: 80px;
-			background-image: url("/img/puzzle_num.svg") ;
 			position: absolute;
 			-webkit-user-drag: none;
 		}
@@ -81,11 +70,11 @@
 		<div class = "sideBar">
 			
 			<div class="pallett1">
-				<div class="puzzle 01" draggable="true" data-id="rootPuzzle"></div>
+				<img data-id="rootPuzzle" class ="puzzle" src="/img/puzzle_oper.svg">
 			</div>
 
 			<div class="pallett2">
-				<div class="puzzle 02" draggable="true" data-id="rootPuzzle"></div>
+				<img data-id="rootPuzzle" class ="puzzle" src="/img/puzzle_num.svg">
 			</div>
 
 		</div>

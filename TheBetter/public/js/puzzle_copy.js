@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", (e) => {
 	
-	const puzzle = document.querySelectorAll(".puzzle");
-	const rootPuzzle = document.querySelectorAll('div[data-id="rootPuzzle"]');
+	const puzzle = document.querySelectorAll("img.puzzle");
+	const rootPuzzle = document.querySelectorAll('img[data-id="rootPuzzle"]');
 	let dragging = false; // 마우스 다운된 상태냐?
 	let offset = { x: 0, y: 0 };
 	let current = null;
@@ -18,12 +18,13 @@ document.addEventListener("DOMContentLoaded", (e) => {
 	  if (e.target.classList.contains("puzzle")) dragging = true;
 	  if (e.target.dataset.id === "rootPuzzle") {
 		console.log(e.target)
-		let newNode = rootPuzzle.cloneNode();
+		let a = e.target;
+		let newNode = a.cloneNode();
 		current = newNode;
 		newNode.dataset.id = Math.random().toString(36).substr(2, 10);
 		// 10자리랜덤문자열생성
 		newNode.dataset.num = i++;
-		newNode.style.zIndex = 2;
+		newNode.style.zIndex = 1000;
 		newNode.style.left = e.pageX - offset.x + "px";
 		newNode.style.top = e.pageY - offset.y + "px";
 		document.body.appendChild(newNode);
