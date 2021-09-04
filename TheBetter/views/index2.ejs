@@ -48,6 +48,7 @@
 			height: 80px;
 			background-image: url("/img/puzzle_num.svg") ;
 			position: absolute;
+			-webkit-user-drag: none;
 		}
 
 		div.sketchBook_box {
@@ -80,15 +81,11 @@
 		<div class = "sideBar">
 			
 			<div class="pallett1">
-				<div class="puzzle" draggable="true"></div>
-				<div class="puzzle" draggable="true"></div>
-				<div class="puzzle" draggable="true"></div>
-				<div class="puzzle" draggable="true"></div>
+				<div class="puzzle 01" draggable="true" data-id="rootPuzzle"></div>
 			</div>
 
 			<div class="pallett2">
-				<div class="puzzle" draggable="true"></div>
-				<div class="puzzle" draggable="true"></div>
+				<div class="puzzle 02" draggable="true" data-id="rootPuzzle"></div>
 			</div>
 
 		</div>
@@ -104,41 +101,5 @@
   
 	</body>
 
-	<script>
-
-	window.addEventListener("load",function(){
-		const wrap = document.querySelector("#wrap");
-		// const puzzle = document.querySelector(".puzzle");
-		const pallett = document.querySelector(".pallett");
-		const sketchBook = document.querySelector(".sketchBook");
-
-		let puzzle_c = null ;
-
-		let dragging = false;
-		let offset = {X:0, Y:0};
-
-		wrap.onmousedown = function(e){
-			if(e.target.classList.contains( "puzzle")) {
-				dragging = true;
-				puzzle_c = e.target;
-				offset.X = e.offsetX;
-				offset.Y = e.offsetY;
-			}
-		};
-
-
-		wrap.onmousemove = function(e){
-			if(!dragging) return ;
-			
-			puzzle_c.style.left = e.pageX-offset.X+"px";
-			puzzle_c.style.top = e.pageY-offset.Y+"px";
-		};
-
-		wrap.onmouseup = function(e){
-			dragging = false;
-		};
-		
-
-	})
-	</script>
+	<script src="/js/puzzle_copy.js"></script>
 </html>
