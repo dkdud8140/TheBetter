@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Better</title>
+    <link rel='stylesheet' href='/css/main.css' />
+  
+	<style>
+		div#wrap{
+			width: 100vw;
+			height: 820px;
+			display: flex;
+		}
+
+		div#wrap div{
+			display: inline-block;
+		}
+		
+		div.sideBar {
+			width: 260px;
+			background-color: blueviolet;
+			height: 820px;
+		}
+
+		div.pallett1 {
+			background-color: blanchedalmond;
+			width: 190px;
+			height: 500px;
+		}
+
+		div.pallett1 div.puzzle{
+			width: 76.6px;
+			height: 80px;
+			background-image: url("/img/puzzle_oper.svg") ;
+			/*드래그에 따라 위치값이 정해지기 떄문에 포지션 absolute로 변경*/
+			position: absolute;
+		}
+
+		
+		div.pallett2 {
+			background-color: chocolate;
+			width: 190px;
+			height: 200px;
+		}
+
+		div.pallett2 div.puzzle{
+			width: 92px;
+			height: 80px;
+			background-image: url("/img/puzzle_num.svg") ;
+			position: absolute;
+		}
+
+		div.sketchBook_box {
+			width: 1400px;
+			height: 820px;
+			background-color: burlywood;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		div.sketchBook {
+			width: 1380px;
+			height: 750px;
+			background-color: #FFF;
+			border-radius: 10px;
+			box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, .1);
+		}
+
+	</style>
+
+	</head>
+
+
+  <body>
+
+	<% include ./include/header_menu.ejs %>
+	
+	<div id = "wrap">
+		<div class = "sideBar">
+			
+			<div class="pallett1">
+				<div class="puzzle" draggable="true"></div>
+				<div class="puzzle" draggable="true"></div>
+				<div class="puzzle" draggable="true"></div>
+				<div class="puzzle" draggable="true"></div>
+			</div>
+
+			<div class="pallett2">
+				<div class="puzzle" draggable="true"></div>
+				<div class="puzzle" draggable="true"></div>
+			</div>
+
+		</div>
+		<div class = "sketchBook_box" >
+			<div class = "sketchBook" droppable="true" >
+
+			</div>
+		</div>
+		<div class="sideBar">
+
+		</div>
+	</div>
+  
+	</body>
+
+	<script>
+
+	window.addEventListener("load",function(){
+		const wrap = document.querySelector("#wrap");
+		// const puzzle = document.querySelector(".puzzle");
+		const pallett = document.querySelector(".pallett");
+		const sketchBook = document.querySelector(".sketchBook");
+
+		let puzzle_c = null ;
+
+		let dragging = false;
+		let offset = {X:0, Y:0};
+
+		wrap.onmousedown = function(e){
+			if(e.target.classList.contains( "puzzle")) {
+				dragging = true;
+				puzzle_c = e.target;
+				offset.X = e.offsetX;
+				offset.Y = e.offsetY;
+			}
+		};
+
+
+		wrap.onmousemove = function(e){
+			if(!dragging) return ;
+			
+			puzzle_c.style.left = e.pageX-offset.X+"px";
+			puzzle_c.style.top = e.pageY-offset.Y+"px";
+		};
+
+		wrap.onmouseup = function(e){
+			dragging = false;
+		};
+		
+
+	})
+	</script>
+</html>
