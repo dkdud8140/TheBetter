@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Better</title>
+    <link rel='stylesheet' href='/css/main.css' />
+  
+	<style>
+		div#wrap{
+			width: 100vw;
+			height: 820px;
+			display: flex;
+		}
+
+		div#wrap div{
+			display: inline-block;
+		}
+		
+		div.sideBar {
+			width: 260px;
+			background-color: blueviolet;
+			height: 820px;
+		}
+
+		div.pallett1 {
+			background-color: blanchedalmond;
+			width: 190px;
+			height: 500px;
+		}
+		div.pallett1 img.puzzle{
+			width: 76.6px;
+			height: 80px;
+			left: 50px;
+			position: absolute;
+			-webkit-user-drag: none;
+		}
+
+		div.pallett1 img:nth-of-type(1) {
+			top : 150px;
+		}
+		div.pallett1 img:nth-of-type(2) {
+			top : 260px;
+		}
+		div.pallett1 img:nth-of-type(3) {
+			top : 370px;
+		}
+		div.pallett1 img:nth-of-type(4) {
+			top : 480px;
+		}
+
+		
+		div.pallett2 {
+			background-color: chocolate;
+			width: 190px;
+			height: 200px;
+		}
+
+		div.pallett2 img.puzzle{
+			width: 92px;
+			height: 80px;
+			position: absolute;
+			-webkit-user-drag: none;
+		}
+
+		div.sketchBook_box {
+			width: 1400px;
+			height: 820px;
+			background-color: burlywood;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		div.sketchBook {
+			width: 1380px;
+			height: 750px;
+			background-color: #FFF;
+			border-radius: 10px;
+			box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, .1);
+		}
+
+	</style>
+
+	</head>
+
+
+  <body>
+
+	<% include ./include/header_menu.ejs %>
+	
+	<div id = "wrap">
+		<div class = "sideBar">
+			
+			<div class="pallett1">
+				<img data-id="rootPuzzle" class ="puzzle oper" src="/img/oper-p.svg">
+				<img data-id="rootPuzzle" class ="puzzle oper" src="/img/oper-m.svg">
+				<img data-id="rootPuzzle" class ="puzzle oper" src="/img/oper-d.svg">
+				<img data-id="rootPuzzle" class ="puzzle oper" src="/img/oper-x.svg">
+			</div>
+
+			<div class="pallett2">
+				<img data-id="rootPuzzle" class ="puzzle num" src="/img/puzzle_num.svg">
+			</div>
+
+		</div>
+		<div class = "sketchBook_box" >
+			<div class = "sketchBook" droppable="true" >
+
+			</div>
+		</div>
+		<div class="sideBar">
+
+		</div>
+	</div>
+  
+	</body>
+
+	<script>
+
+	document.addEventListener("DOMContentLoaded", (e) => {
+		
+		const puzzle = document.querySelectorAll("img.puzzle");
+		// const rootPuzzle = document.querySelectorAll('img[data-id="rootPuzzle"]');
+		let dragging = false; // 마우스 다운된 상태냐?
+		let offset = { x: 0, y: 0 };
+		let current = null;
+		let i = 1;
+
+		// 마우스가 눌려있을 때
+		document.addEventListener("mousedown", (e) => {
+			offset.x = e.offsetX;
+			offset.y = e.offsetY;
+			// 정확히 퍼즐을 선택했을 때만 실행되게
+			if (e.target.classList.contains("puzzle")) dragging = true;
+			if (e.target.dataset.id === "rootPuzzle") {
+				let newNode = e.target.cloneNode();
+				current = newNode;
+				newNode.dataset.id = Math.random().toString(36).substr(2, 10);
+				// 10자리랜덤문자열생성
+				if(e.target.classList.contains("oper")) {
+					newNode.style.width = "115px";
+				} else if(e.target.classList.contains("num")) {
+					newNode.style.width = "138.5px"; 
+				}
+				newNode.style.height = "120px";
+				newNode.dataset.num = i++;
+				newNode.style.zIndex = 2;
+				newNode.style.position = "absolute";
+				newNode.style.WebkitUserDrag = "none";
+				newNode.style.left = e.pageX - offset.x + "px";
+				newNode.style.top = e.pageY - offset.y + "px";
+				document.body.appendChild(newNode);
+			} else {
+				current = e.target;
+			}
+		});
+
+		document.addEventListener("mousemove", (e) => {
+			if (dragging) {
+				current.style.left = e.pageX - offset.x + "px";
+				current.style.top = e.pageY - offset.y + "px";
+			}
+		});
+	
+		document.addEventListener("mouseup", (e) => {
+			dragging = false;
+		});
+
+
+	});
+	</script>
+</html>

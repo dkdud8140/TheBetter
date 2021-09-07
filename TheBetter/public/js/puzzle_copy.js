@@ -13,8 +13,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
 	  offset.x = e.offsetX;
 	  offset.y = e.offsetY;
 	  // 정확히 퍼즐을 선택했을 때만 실행되게
-	  console.log("드래깅중")
-	  console.log(rootPuzzle)
 	  if (e.target.classList.contains("puzzle")) dragging = true;
 	  if (e.target.dataset.id === "rootPuzzle") {
 		console.log(e.target)

@@ -7,7 +7,7 @@ const controller = express.Router();
 
 /* GET home page. */
 controller.get("/", function (req, res, next) {
-  res.render("magnet1", { title: "Express" });
+  res.render("index", { title: "Express" });
 });
 
 controller.get("/home", function (req, res, next) {
